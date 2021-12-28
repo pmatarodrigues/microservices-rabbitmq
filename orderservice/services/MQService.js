@@ -1,4 +1,5 @@
 var amqp = require('amqplib/callback_api');
+var connectToDB = require('./DBService');
 
 amqp.connect('amqp://localhost', function (error0, connection) {
     if (error0) {
@@ -20,6 +21,12 @@ amqp.connect('amqp://localhost', function (error0, connection) {
             console.log(" [ORDERS] Received.");
             console.log(decoded_data);
             console.log("-------------------");
+
+            connectToDB(queue, async (collection) => {
+                const options = { ordered: true };
+                const result = await collection.insertMany(decoded_data, options)
+                console.log(`${result.insertedCount} documents were inserted`);
+            })
         }, {
             noAck: true
         })
