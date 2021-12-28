@@ -1,6 +1,11 @@
 <section class="phx-hero">
   <div class="product-container">
-    <img src="https://m.media-amazon.com/images/I/81iaYubC5HL._AC_UL320_.jpg" height="200" width="200" />
-    <%= button("Add to Cart", to: "/addtocart", method: :get, class: "btn") %>
+    <%= for product <- @products do %>
+      <div class="product-item-cart">
+        <h3><%= product["title"] %></h3>
+        <p><%= product["value"] %>€</p>
+      </div>
+    <% end %>
+    <%= button("Checkout", to: "/checkout", method: :get, class: "btn") %>
   </div>
 </section>

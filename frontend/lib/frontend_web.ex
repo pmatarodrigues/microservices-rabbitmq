@@ -27,6 +27,12 @@ defmodule FrontendWeb do
     end
   end
 
+  def worker do
+    quote do
+      import FrontendWeb.Worker
+    end
+  end
+
   def view do
     quote do
       use Phoenix.View,
